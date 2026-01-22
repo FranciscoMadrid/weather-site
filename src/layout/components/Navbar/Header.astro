@@ -1,0 +1,11 @@
+---
+import DesktopNavbar from "./DesktopNavbar.astro";
+import MobileNavbar from "./MobileNavbar";
+import LogoPlaceHolder from '/public/images/Weather Site Logo.png'
+---
+<div>
+  <DesktopNavbar/>
+  <MobileNavbar 
+    logo_image={LogoPlaceHolder}
+    client:load/>
+</div>

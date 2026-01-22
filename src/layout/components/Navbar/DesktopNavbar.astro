@@ -1,0 +1,49 @@
+---
+import NavLink from "../NavLink"
+import { Image } from "astro:assets"
+import LogoPlaceHolder from '/public/images/Weather Site Logo.png'
+import navMenuConfig from '@/config/nav_menu.json'
+
+export interface NavbarProps {
+  logo_image?: ImageMetadata,
+  logo_title?: string,
+  height?: number,
+  width?: number,
+}
+
+const {
+  logo_image = LogoPlaceHolder, 
+  logo_title,
+  height = 80,
+  width = 80,
+  } = Astro.props;
+---
+
+<nav id="navbar" class="bg-primary hidden md:flex flex-row justify-between items-center w-full p-2 px-5 z-10">
+  <a
+    class="flex flex-row items-center"
+    href="/">
+    <Image
+      width={width}
+      height={height}
+      loading={'eager'}
+      src={logo_image}
+      alt={logo_image}
+    />
+  </a>
+  <!-- Desktop View -->
+  <ul class="hidden md:flex flex-row gap-10 justify-between">
+    {navMenuConfig.nav.map((nav) => (
+      <li>
+        <NavLink
+          title={nav.name}
+          href={nav.href}
+          hasUnderline={true}
+          className="text-white font-semibold text-lg md:text-xl"
+          underlineClassName="h-1 bg-white -bottom-0.5"
+          client:load
+        />
+      </li>
+    ))}
+  </ul>
+</nav>
