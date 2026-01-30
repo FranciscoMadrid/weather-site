@@ -7,3 +7,29 @@
   --color-accent: #C14953;
   --color-background: #FBF5F3
 }
+
+.mask-card {
+  mask-image: 
+    linear-gradient(black, black), 
+    linear-gradient(black,black);
+
+    mask-size: 100% 100%;
+    mask-position: 
+      center,
+      calc(50% - 1.5) calc(100% -3rem);
+
+    -webkit-mask-image:
+      linear-gradient(black, black),
+      linear-gradient(black, black);
+    -webkit-mask-size:
+      100% 100%,
+      calc(50% - 1.5rem) calc(100% - 3rem);
+    -webkit-mask-position:
+      center,
+      left 1.5rem center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-composite: xor;
+
+    mask-repeat: no-repeat;
+    mask-composite: exclude;
+}

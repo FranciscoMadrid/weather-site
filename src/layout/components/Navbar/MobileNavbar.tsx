@@ -16,13 +16,13 @@ export default function MobileNavbar({
   height = 80,
   width = 80,
 }: MobileNavbarProps) {
-  const [toggle, setToggle] = useState(true)
+  const [toggle, setToggle] = useState(false)
 
   const handleToggle = () => setToggle(!toggle)
   const handleClose = () => setToggle(false)
 
   return (
-    <nav id='navbar' className='bg-primary flex md:hidden flex-row justify-between items-center w-full p-2 px-5 z-10'>
+    <nav id='navbar' className='bg-transparent flex md:hidden flex-row justify-between items-center w-full p-2 px-5 z-10'>
       
       {/* Logo */}
       <a className="flex flex-row items-center" href="/">

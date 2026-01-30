@@ -1,0 +1,93 @@
+{
+  "clear": {
+    "codes": [1000],
+    "day": {
+      "video": "/video/clear-day.mp4",
+      "image": "/image/clear-day.jpg"
+    },
+    "night": {
+      "video": "/video/clear-night.mp4",
+      "image": "/image/clear-night.jpg"
+    }
+  },
+
+  "cloudy": {
+    "codes": [1003, 1006],
+    "day": {
+      "video": "/video/cloudy-day.mp4",
+      "image": "/image/cloudy-day.jpg"
+    },
+    "night": {
+      "video": "/video/cloudy-night.mp4",
+      "image": "/image/cloudy-night.jpg"
+    }
+  },
+
+  "overcast": {
+    "codes": [1009],
+    "day": {
+      "video": "/video/overcast-day.mp4",
+      "image": "/image/overcast-day.jpg"
+    },
+    "night": {
+      "video": "/video/overcast-night.mp4",
+      "image": "/image/overcast-night.jpg"
+    }
+  },
+
+  "fog": {
+    "codes": [1030, 1135, 1147],
+    "day": {
+      "video": "/video/fog-day.mp4",
+      "image": "/image/fog-day.jpg"
+    },
+    "night": {
+      "video": "/video/fog-night.mp4",
+      "image": "/image/fog-night.jpg"
+    }
+  },
+
+  "rain": {
+    "codes": [
+      1063, 1072, 1150, 1153, 1168, 1171,
+      1180, 1183, 1186, 1189, 1192, 1195,
+      1198, 1201, 1240, 1243, 1246
+    ],
+    "day": {
+      "video": "/video/rain-day.mp4",
+      "image": "/image/rain-day.jpg"
+    },
+    "night": {
+      "video": "/video/rain-night.mp4",
+      "image": "/image/rain-night.jpg"
+    }
+  },
+
+  "snow": {
+    "codes": [
+      1066, 1069, 1114, 1117, 1204, 1207,
+      1210, 1213, 1216, 1219, 1222, 1225,
+      1237, 1249, 1252, 1255, 1258, 1261, 1264
+    ],
+    "day": {
+      "video": "/video/snow-day.mp4",
+      "image": "/image/snow-day.jpg"
+    },
+    "night": {
+      "video": "/video/snow-night.mp4",
+      "image": "/image/snow-night.jpg"
+    }
+  },
+
+  "storm": {
+    "codes": [1087, 1273, 1276, 1279, 1282],
+    "day": {
+      "video": "/video/storm-day.mp4",
+      "image": "/image/storm-day.jpg"
+    },
+    "night": {
+      "video": "/video/storm-night.mp4",
+      "image": "/image/storm-night.jpg"
+    }
+  }
+}

@@ -1,7 +1,10 @@
 ---
 import Base from "@/layout/Base.astro"
+import WeatherContainer from "@/layout/components/functional components/weather/WeatherContainer"
 ---
 
-<Base>
-
+<Base 
+  className="flex flex-col">
+    <WeatherContainer
+      client:load/>
 </Base>

@@ -1,0 +1,48 @@
+{
+  "methods": [
+    {
+      "name": "Current weather",
+      "method": "/current.json"
+    },
+    {
+      "name": "Forecast",
+      "method": "/forecast.json"
+    },
+    {
+      "name": "Search or Autocomplete",
+      "method": "/search.json"
+    },
+    {
+      "name": "History",
+      "method": "/history.json"
+    },
+    {
+      "name": "Alerts",
+      "method": "/alerts.json"
+    },
+    {
+      "name": "Marine",
+      "method": "/marine.json"
+    },
+    {
+      "name": "Future",
+      "method": "/future.json"
+    },
+    {
+      "name": "Time Zone",
+      "method": "/timezone.json"
+    },
+    {
+      "name": "Sports",
+      "method": "/sports.json"
+    },
+    {
+      "name": "Astronomy",
+      "method": "/astronomy.json"
+    },
+    {
+      "name": "IP Lookup",
+      "method": "/ip.json"
+    }
+  ]
+}
