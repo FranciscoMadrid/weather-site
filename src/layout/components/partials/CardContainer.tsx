@@ -9,7 +9,7 @@ export default function CardContainer({
   children,
 }: CardContainerProps) {
   return (
-    <div className={`bg-black/30 p-2 rounded-md backdrop-blur-lg flex flex-col items-start ${className}`}>
+    <div className={`bg-black/30 p-2 rounded-md backdrop-blur-md ${className}`}>
       {children}
     </div>
   )

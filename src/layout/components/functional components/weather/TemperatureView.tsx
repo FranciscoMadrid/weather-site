@@ -1,30 +1,28 @@
 import type { CurrentWeather } from '@/lib/weather_api/type'
 import React from 'react'
-import CardContainer from '../../partials/CardContainer';
 import { FaTemperatureHigh } from "react-icons/fa";
 import { WiHumidity } from "react-icons/wi";
 import TempDetailCard from './TempDetailCard';
 import { FaWind } from "react-icons/fa";
+import { $settings, getSiteSettings } from '@/lib/store/site_settings';
+import { useStore } from '@nanostores/react';
 
 
 export interface TemperatureViewProps {
   currentWeather: CurrentWeather,
   temp?: number,
-  viewKm: boolean,
-  viewCelsius: boolean,
   className?:string
 }
 
 export default function TemperatureView({
   currentWeather,
   temp = 0,
-  viewCelsius,
-  viewKm,
   className
 }: TemperatureViewProps) {
-  const tempSymbol = viewCelsius ? 'C°' : 'F°'
-  const windSpeed = viewKm ? currentWeather.wind_kph : currentWeather.wind_mph
-  const metricSymbol = viewKm ? 'KMP' : 'MPH'
+  const settings = useStore($settings)
+  const tempSymbol = settings.viewCelsius ? 'C°' : 'F°'
+  const windSpeed = settings.viewKm ? currentWeather.wind_kph : currentWeather.wind_mph
+  const metricSymbol = settings.viewKm ? 'KMP' : 'MPH'
 
   const {condition} = currentWeather;
   return (

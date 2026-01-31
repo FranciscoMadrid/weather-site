@@ -27,7 +27,7 @@ export async function getCurrentWeather() {
 }
 
 export async function getForecast(){
-  const url = `${BASE_URL}/${WeatherApiMethod.Forecast}?key=${API_KEY}&q=London`;
+  const url = `${BASE_URL}/${WeatherApiMethod.Forecast}?key=${API_KEY}&q=London&days=7`;
 
   try {
     const response = await fetch (url, {
