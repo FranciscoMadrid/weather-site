@@ -5,36 +5,33 @@ import React from 'react'
 import type { IconType } from 'react-icons'
 
 export interface ForecastCardProps {
-  forecastDay: ForecastDay,
+  temp: number,
   title: string,
   subtitle?:string,
-  icon?: IconType,
-  isHourly?: boolean
+  icon: string,
+  rightNow?: boolean
 }
 
 export default function ForecastCard({
-  forecastDay, 
+  temp, 
   title, 
-  icon: Icon,
+  icon,
+  rightNow = false,
   subtitle,
-  isHourly = false
 }: ForecastCardProps) {
   const settings = useStore($settings);
-  
-  // Clean up temperature logic: math.round makes it look much cleaner in UI
-  const temp = Math.round(settings.viewCelsius ? forecastDay.day.avgtemp_c : forecastDay.day.avgtemp_f);
   const tempSymbol = settings.viewCelsius ? '°C' : '°F';
 
   return (
-    <div className='p-3 w-28 shrink-0 rounded-xl bg-white/5 hover:bg-white/20 transition-all duration-300 flex flex-col items-center gap-1 cursor-default'>
-      
+    <div className={`p-2 w-20 md:w-28 shrink-0 rounded-xl bg-white/10 transition-all duration-300 flex flex-col items-center gap-1 
+      ${rightNow ? 'bg-white/40' : 'hover:bg-white/20'}`}>
       {/* Date/Day Info */}
       <div className='flex flex-col items-center'>
-        <span className='text-white text-sm font-medium'>
+        <span className='text-white text-sm md:text-xl font-medium'>
           {title}
         </span>
         {subtitle && (
-          <span className='text-white/50 text-xs'>
+          <span className='text-gray-400 text-xs'>
             {subtitle}
           </span>
         )}
@@ -42,15 +39,15 @@ export default function ForecastCard({
 
       {/* Weather Icon */}
       <img 
-        src={`${forecastDay.day.condition.icon}`}
-        alt={forecastDay.day.condition.text}
-        className='h-12 w-12 my-1'
+        src={icon}
+        alt={icon?.toString()}
+        className='h-8 w-8 md:h-12 md:w-12 my-1'
       />
 
       {/* Temperature */}
       <div className='flex items-start text-white'>
-        <span className='font-semibold text-xl'>{temp}</span>
-        <span className='text-xs mt-1 font-light ml-0.5'>{tempSymbol}</span>
+        <span className='font-semibold text-sm md:text-xl'>{temp}</span>
+        <sub className='mt-1 font-light ml-0.5'>{tempSymbol}</sub>
       </div>
       
     </div>

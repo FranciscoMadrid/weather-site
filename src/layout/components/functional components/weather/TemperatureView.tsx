@@ -26,7 +26,7 @@ export default function TemperatureView({
 
   const {condition} = currentWeather;
   return (
-    <div className={`flex flex-col gap-2 items-center p-5 w-full h-full justify-between ${className}`}>
+    <div className={`flex flex-col gap-20 md:gap-40 items-center w-full h-full justify-evenly ${className}`}>
 
       {/* Temperature & Condition */}
       <div className='flex flex-col -gap-2 items-center w-full'>
@@ -39,11 +39,11 @@ export default function TemperatureView({
       </div>
 
       {/* Temperature Details */}
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 items-center justify-between w-full'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 items-center justify-between w-full h-full'>
         
         {/* Feels Like */}
         <TempDetailCard
-          className='gap-2 h-full'
+          className='gap-2 min-h-30 flex flex-col'
           title='Feels like'
           metric={`${temp}`}
           tempSymbol={tempSymbol}
@@ -52,19 +52,10 @@ export default function TemperatureView({
 
         {/* Humidity */}
         <TempDetailCard
-          className='gap-2 h-full'
+          className='gap-2 min-h-30 flex flex-col'
           title='Humidity'
           metric={`${currentWeather.humidity}%`}
-          subtitle={`UV index ${currentWeather.uv} of 10`}
           icon={WiHumidity}
-        />
-
-        <TempDetailCard
-          className='gap-2 h-full'
-          title={`${metricSymbol}`}
-          icon={FaWind}
-          metric={`${windSpeed}`}
-          subtitle={`${currentWeather.wind_dir} ${currentWeather.wind_degree}°`}
         />
       </div>
     </div>

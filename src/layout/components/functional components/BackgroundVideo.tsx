@@ -8,7 +8,7 @@ export interface BackgroundVideoProps{
 }
 
 export default function BackgroundVideo({
-  videoUrl = '/video/day/clear.mp4',
+  videoUrl = '/video/night/clear.mp4',
   className,
   autoPlay = true,
   fadeDuration = 2

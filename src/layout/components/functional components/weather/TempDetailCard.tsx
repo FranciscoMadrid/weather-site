@@ -13,30 +13,30 @@ export interface TempDetailCard {
 export default function TempDetailCard({
   className,
   title,
-  subtitle,
+  subtitle = '',
   metric,
   tempSymbol,
   icon: Icon
 }:TempDetailCard) {
   return (
-    <CardContainer className={className}>
-      <div className='flex flex-row gap-2 uppercase text-white items-center p-1 tracking-wider'>
-        {Icon && <Icon className='text-xl'/>}
-        <h2 className='font-semibold'>{title}</h2>
+    <CardContainer className={`${className} w-full`}>
+      <div className='flex flex-row gap-2 uppercase text-white items-center p-1 tracking-wider '>
+        {Icon && <Icon size={30}/>}
+        <h2 className='font-semibold text-sm'>{title}</h2>
       </div>
-      <div className='flex flex-row items-center text-white'>
-        <h2 className='font-semibold tracking-wide text-xl md:text-4xl'>{metric}</h2>
+
+      <div className='flex flex-row items-center text-white self-center'>
+        <h2 className='font-medium text-2xl tracking-wide'>{metric}</h2>
         {tempSymbol && (
-          <sup className='text-xs md:text-lg font-semibold'>
+          <sup className='font-medium'>
             {tempSymbol}
           </sup>
         )}
       </div>
-      {subtitle && (
-        <span className='text-white tracking-widee uppercase font-light'>
-          {subtitle}
-        </span>
-      )}
+
+      <span className='text-white  tracking-widee uppercase font-light'>
+        {subtitle}
+      </span>
     </CardContainer>
   )
 }
