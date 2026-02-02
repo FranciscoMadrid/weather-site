@@ -180,10 +180,16 @@ export default function WeatherContainer({
                   <div className='flex flex-col items-center'>
                     <div className='relative'>
                       <img
-                        className={`w-fit h-full scale-75 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 rotate-${data.current.wind_degree}`}
+                        className={`w-fit h-full scale-75 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2`}
+                        style={{
+                          rotate: `${data.current.wind_degree}deg`
+                        }}
                         alt='comppas_needle.png' 
                         src='/images/needle_compass.png'/>
-                      <img alt='compass.png' src='/images/compass_body.png' className='w-fit'/>
+                      <img 
+                        alt='compass.png' 
+                        src='/images/compass_body.png' 
+                        className='w-fit'/>
                     </div>
                   </div>
                 </div>

@@ -21,29 +21,29 @@ export default function TemperatureView({
 }: TemperatureViewProps) {
   const settings = useStore($settings)
   const tempSymbol = settings.viewCelsius ? 'C°' : 'F°'
-  const windSpeed = settings.viewKm ? currentWeather.wind_kph : currentWeather.wind_mph
-  const metricSymbol = settings.viewKm ? 'KMP' : 'MPH'
-
   const {condition} = currentWeather;
   return (
     <div className={`flex flex-col gap-20 md:gap-40 items-center w-full h-full justify-evenly ${className}`}>
 
       {/* Temperature & Condition */}
-      <div className='flex flex-col -gap-2 items-center w-full'>
+      <div className='flex flex-col gap-5 py-5 items-center w-full'>
         <div className='flex flex-row items-center text-white'>
           <h2 className='font-extralight text-7xl'>{temp}</h2>
           <sup className='font-bold text-2xl'>{tempSymbol}</sup>
         </div>
         <h2 className='text-4xl text-white font-light'>{condition.text}</h2>
-        <img src={condition.icon} className='w-20 h-20'/>
+        <img
+          alt={condition.text}
+          src={condition.icon} 
+          className='w-20 h-20'/>
       </div>
 
       {/* Temperature Details */}
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 items-center justify-between w-full h-full'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 items-end justify-between w-full h-full'>
         
         {/* Feels Like */}
         <TempDetailCard
-          className='gap-2 min-h-30 flex flex-col'
+          className='gap-2 min-h-30 flex flex-col '
           title='Feels like'
           metric={`${temp}`}
           tempSymbol={tempSymbol}

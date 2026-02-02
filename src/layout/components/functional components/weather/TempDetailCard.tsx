@@ -19,7 +19,7 @@ export default function TempDetailCard({
   icon: Icon
 }:TempDetailCard) {
   return (
-    <CardContainer className={`${className} w-full`}>
+    <CardContainer className={`${className} w-full `}>
       <div className='flex flex-row gap-2 uppercase text-white items-center p-1 tracking-wider '>
         {Icon && <Icon size={30}/>}
         <h2 className='font-semibold text-sm'>{title}</h2>
