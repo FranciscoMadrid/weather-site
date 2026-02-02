@@ -152,3 +152,18 @@ export interface ForecastResponse {
     forecastday: ForecastDay[];
   };
 }
+
+export type TimeOfDay = 'day' | 'night';
+
+export interface WeatherAsset {
+  video: string,
+  image: string
+};
+
+export interface WeatherConditionConfig {
+  codes: number[];
+  day: WeatherAsset;
+  night: WeatherAsset;
+};
+
+type WeatherConditionsMap = Record<string, WeatherConditionConfig>;

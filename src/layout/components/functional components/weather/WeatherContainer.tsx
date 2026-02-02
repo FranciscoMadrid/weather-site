@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { ForecastResponse } from '@/lib/weather_api/type';
+import type { ForecastResponse, WeatherAsset } from '@/lib/weather_api/type';
 import TemperatureView from './TemperatureView';
 import BackgroundVideo from '../BackgroundVideo';
 import ScrollableContainer from '../../partials/ScrollableContainer';
@@ -13,16 +13,17 @@ import CardContainer from '../../partials/CardContainer';
 import { FaSun } from "react-icons/fa6";
 import { FaWind } from "react-icons/fa";
 import UVLevelBar from './UVLevelBar';
+import WeatherConditions from '@/config/weather_api_conditions.json';
+import { getWeatherAssets } from '@/lib/util';
 
 export default function WeatherContainer({
   
 }) {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ForecastResponse>();
-  const [isDay, setIsDay] = useState(false)
-  const backgroundVideoUrl = `video/${isDay ? 'day' : 'night'}/clear.mp4`
   const settings = useStore($settings)
-  
+  const [backgroundVideoUrl, setBackgroundVideoUrl] = useState<WeatherAsset>()
+
   const currentTemp = settings.viewCelsius
     ? data?.current.temp_c
     : data?.current.temp_f;
@@ -50,8 +51,7 @@ export default function WeatherContainer({
       if (!res.ok) throw new Error('Failed to fetch forecast')
         const json: ForecastResponse = await res.json()
       setData(json)
-      console.log(json)
-      setIsDay(!!json.current.is_day)
+      setBackgroundVideoUrl(getWeatherAssets(json.current.condition.code, !!json.current.is_day))
     } catch (error) {
       console.error(error)
     } finally {
@@ -144,6 +144,8 @@ export default function WeatherContainer({
                   uv={data.current.uv}
                 />
               </CardContainer>
+
+              {/* Wind Details */}
               <CardContainer className='bg-black/60 flex h-fit flex-col justify-between gap-5 p-5'>
                 <div className='grid grid-cols-2 items-center'>
                   <div className='w-full gap-2 grid grid-cols-[auto_1fr] rounded-2xl text-xl tracking-wider'>
@@ -198,9 +200,11 @@ export default function WeatherContainer({
           </div>
         )}
       </div>
-      <BackgroundVideo
-        videoUrl={backgroundVideoUrl}
-      />
+      {backgroundVideoUrl && (
+        <BackgroundVideo
+          assests={backgroundVideoUrl}
+        />
+      )}
     </section>
   )
 }
