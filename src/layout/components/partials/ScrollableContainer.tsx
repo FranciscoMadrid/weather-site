@@ -6,16 +6,18 @@ import type { IconType } from 'react-icons'
 export interface ScrollableContainerProps {
   title?: string,
   icon?: IconType
-  children: React.ReactNode
+  children: React.ReactNode, 
+  className?: string
 }
 
 export default function ScrollableContainer({
   title = 'Default title',
   icon: Icon,
-  children
+  children,
+  className
 }: ScrollableContainerProps) {
   return (
-    <CardContainer className='w-full bg-black/60'>
+    <CardContainer className={`w-full ${className}`}>
       <div className='flex w-full flex-col gap-2 items-start justify-between'>
         {/* View Title */}
         <div className='flex flex-row gap-2 items-start pb-1 border-b-2 border-white/80 w-full'>

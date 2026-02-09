@@ -26,8 +26,8 @@ export async function getCurrentWeather() {
   }
 }
 
-export async function getForecast(){
-  const url = `${BASE_URL}/${WeatherApiMethod.Forecast}?key=${API_KEY}&q=London&days=7`;
+export async function getForecast(query: string){
+  const url = `${BASE_URL}/${WeatherApiMethod.Forecast}?key=${API_KEY}&q=${query}&days=7`;
 
   try {
     const response = await fetch (url, {
@@ -54,6 +54,5 @@ export function getConditionCategory(code: number){
       return group
     }
   }
-  /* Default value */
   return 'clear'
 }

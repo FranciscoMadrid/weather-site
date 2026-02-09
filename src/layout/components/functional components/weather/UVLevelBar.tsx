@@ -25,7 +25,10 @@ export default function UVLevelBar({uv}:UVLevelBarProps) {
       from-green-500
       via-red-500
       to-purple-700">
-        <div className={`h-4 w-4 outline-2 ring-2 left-[${percent}] bg-white rounded-full absolute -top-1/2 -translatey-1/2`}/>
+        <div
+          style={{left: `${percent}%`}}
+          className={`h-4 w-4 outline-2 ring-2 bg-white rounded-full absolute -top-1/2 -translatey-1/2`}
+        />
       </div>
     </div>
   )

@@ -12,3 +12,17 @@ export const WeekdayMap: Record<number, string> ={
   5: "Friday",
   6: "Saturday",
 }
+
+export interface CityStructure {
+  city: string,
+  city_ascii: string,
+  lat: string,
+  lng: string,
+  country: string,
+  iso2: string,
+  iso3: string,
+  admin_name: string,
+  capital: string,
+  population:string,
+  id: string
+}

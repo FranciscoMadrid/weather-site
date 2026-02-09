@@ -15,24 +15,31 @@ import { FaWind } from "react-icons/fa";
 import UVLevelBar from './UVLevelBar';
 import WeatherConditions from '@/config/weather_api_conditions.json';
 import { getWeatherAssets } from '@/lib/util';
+import Searchbar from '@/layout/components/functional components/controls/Searchbar';
 
+export interface WeatherContainerProps {
+  city?: string,
+  country?:string
+}
 export default function WeatherContainer({
-  
-}) {
+  city, 
+  country
+}:WeatherContainerProps) {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ForecastResponse>();
   const settings = useStore($settings)
   const [backgroundVideoUrl, setBackgroundVideoUrl] = useState<WeatherAsset>()
+  const defaultData = city && country ? `${country}, ${city}` : 'San Pedro Sula, Honduras'
 
-  const currentTemp = settings.viewCelsius
+  const currentTempSymbol = settings.viewCelsius
     ? data?.current.temp_c
     : data?.current.temp_f;
 
-  const currentWind = settings.viewKm
+  const currentWindMetric = settings.viewKm
     ? data?.current.wind_kph
     : data?.current.wind_mph
 
-  const currentGust = settings.viewKm
+  const currentGustMetric = settings.viewKm
     ? data?.current.gust_kph
     : data?.current.gust_mph
 
@@ -41,13 +48,13 @@ export default function WeatherContainer({
     : 'MPH'
   
   useEffect(() => {
-    fetchForecast()
+    fetchForecast(defaultData)
   }, [])
 
-  const fetchForecast = async () => {
+  const fetchForecast = async (searchTerm: string) => {
     try {
       setLoading(true)
-      const res = await fetch('/api/fetch_forecast_weather')
+      const res = await fetch(`/api/fetch_forecast_weather?q=${searchTerm}`)
       if (!res.ok) throw new Error('Failed to fetch forecast')
         const json: ForecastResponse = await res.json()
       setData(json)
@@ -65,29 +72,26 @@ export default function WeatherContainer({
       <div className='z-10 grid grid-cols-1 md:grid-cols-[40%_60%] mx-auto max-w-7xl w-full h-full rounded-md overflow-hidden'>
         {/* Left Side of Cont */}
         <div 
-          className='border-20 border-black/40 w-full h-full'>
-          <div className='flex p-5 flex-col gap-2 items-center h-full bg-linear-to-t from-transparent to-black/50 justbe'>
-            {/* Searchbar */}
-            <div className='w-full p-3 gap-2 grid grid-cols-[auto_1fr] rounded-2xl bg-gray-800/60 backdrop-blur-md relative'>
-              <FaLocationDot className='text-white h-full'/>
-              <span className='text-white'>
-                {data?.location.name}, {data?.location.country}
-              </span>
-            </div>
-
+          className='border-20 border-gray-800/40 w-full h-full'>
             {data && (
+              <div className='flex p-5 flex-col gap-2 items-center h-full bg-linear-to-t from-transparent to-gray-600/40 justify-between'>
+              {/* Searchbar */}
+              <Searchbar
+                setData={setData}
+                currentSearTerm={`${data.location.country}, ${data.location.name}`}/>
               <TemperatureView 
                 currentWeather={data.current}
-                temp={currentTemp}/>
+                temp={currentTempSymbol}/>
+              </div>
             )}
-          </div>
         </div>
 
         {/* Right Side of Cont */}
         {data && (
-          <div className='flex flex-col gap-5 p-5 bg-black/40 w-full'>
+          <div className='flex flex-col gap-5 p-5 bg-gray-800/40 w-full'>
             {/* Daily Forecast */}
             <ScrollableContainer
+              className='bg-gray-800/30'
               icon={FaClock}
               title='Daily'>
                 {data.forecast.forecastday.map((day) => {
@@ -97,6 +101,7 @@ export default function WeatherContainer({
                   const temp = settings.viewCelsius ? day.day.avgtemp_c : day.day.avgtemp_f
                   return (
                     <ForecastCard
+                      key={day.date}
                       temp={temp}
                       title={WeekdayMap[date.getUTCDay()]}
                       subtitle={forecastSubtitle}
@@ -108,6 +113,7 @@ export default function WeatherContainer({
             
             {/* Hourly Forecast */}
             <ScrollableContainer
+              className='bg-gray-800/30'
               icon={FaClock}
               title='Hourly - 24 Hours'>
                 {data.forecast.forecastday.slice(0,1).map((item) =>
@@ -133,7 +139,7 @@ export default function WeatherContainer({
 
             <div className='grid grid-cols-1 md:grid-cols-2 h-full w-full gap-5'>
               {/* UV INDEX */}
-              <CardContainer className='bg-black/60 flex flex-col h-fit justify-between gap-5 p-5'>
+              <CardContainer className='bg-gray-800/40 flex flex-col h-fit justify-between gap-5 p-5'>
                 <div className='w-full gap-2 grid grid-cols-[auto_1fr] rounded-2xl text-xl tracking-wider'>
                   <FaSun className='text-white h-full'/>
                   <span className='text-gray-400'>
@@ -146,7 +152,7 @@ export default function WeatherContainer({
               </CardContainer>
 
               {/* Wind Details */}
-              <CardContainer className='bg-black/60 flex h-fit flex-col justify-between gap-5 p-5'>
+              <CardContainer className='bg-gray-800/30 flex h-fit flex-col justify-between gap-5 p-5'>
                 <div className='grid grid-cols-2 items-center'>
                   <div className='w-full gap-2 grid grid-cols-[auto_1fr] rounded-2xl text-xl tracking-wider'>
                     <FaWind className='text-white h-full'/>
@@ -162,7 +168,7 @@ export default function WeatherContainer({
                   <div className='flex flex-col gap-2'>
                     {/* Wind Speed */}
                     <div className='text-white flex flex-row items-center gap-4'>
-                      <span className='font-medium text-2xl'>{currentWind}</span>
+                      <span className='font-medium text-2xl'>{currentWindMetric}</span>
                       <div className='grid grid-rows-2 gap-2 font-medium tracking-tight'>
                         <span className='text-gray-400'>{metricSymbol}</span>
                         <span className='text-gray-200'>Wind</span>
@@ -171,7 +177,7 @@ export default function WeatherContainer({
                     <div className='w-full rounded-full h-0.5 bg-gray-600'/>
                     {/* Gust Speed */}
                     <div className='text-white flex flex-row items-center gap-4'>
-                      <span className='font-medium text-2xl'>{currentGust}</span>
+                      <span className='font-medium text-2xl'>{currentGustMetric}</span>
                       <div className='grid grid-rows-2 gap-2 font-medium tracking-tight'>
                         <span className='text-gray-400'>{metricSymbol}</span>
                         <span className='text-gray-200'>Gust</span>

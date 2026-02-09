@@ -1,10 +1,16 @@
 ---
 import Base from "@/layout/Base.astro"
 import WeatherContainer from "@/layout/components/functional components/weather/WeatherContainer"
+
+const city = Astro.url.searchParams.get('city')?? "";
+const country = Astro.url.searchParams.get('country') ?? "";
+
 ---
 
 <Base 
   className="flex flex-col">
     <WeatherContainer
+      city={city}
+      country={country}
       client:load/>
 </Base>

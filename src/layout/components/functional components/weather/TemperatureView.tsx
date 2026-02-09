@@ -39,11 +39,11 @@ export default function TemperatureView({
       </div>
 
       {/* Temperature Details */}
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-5 items-end justify-between w-full h-full'>
+      <div className='grid grid-cols-2 gap-5 items-end justify-between w-full h-full'>
         
         {/* Feels Like */}
         <TempDetailCard
-          className='gap-2 min-h-30 flex flex-col '
+          className='gap-2 min-h-30 flex flex-col'
           title='Feels like'
           metric={`${temp}`}
           tempSymbol={tempSymbol}

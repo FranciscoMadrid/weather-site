@@ -23,7 +23,7 @@ export default function BackgroundVideo({
     <div className='absolute h-full inset-0 z-0 w-full object-cover object-center top-0 left-0 '>
       <video 
         ref={videoRef}
-        className={`h-full w-full duration-1000 object-fill fixed md:object-cover object-center transition-opacity ease-in 
+        className={`h-full w-full duration-1000 fixed object-cover object-center transition-opacity ease-in 
           ${fade ? 'opacity-0' : 'opacity-100'}`}
         loop
         autoPlay={autoPlay}
