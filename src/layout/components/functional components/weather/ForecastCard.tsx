@@ -23,15 +23,15 @@ export default function ForecastCard({
   const tempSymbol = settings.viewCelsius ? '°C' : '°F';
 
   return (
-    <div className={`p-2 w-20 md:w-28 shrink-0 rounded-xl bg-white/10 transition-all duration-300 flex flex-col items-center gap-1 
+    <div className={`p-2 w-30 h-fit md:w-28 shrink-0 rounded-xl bg-white/10 transition-all duration-300 flex flex-col items-center gap-1 
       ${rightNow ? 'bg-white/40' : 'hover:bg-white/20'}`}>
       {/* Date/Day Info */}
       <div className='flex flex-col items-center'>
         <span className='text-white text-sm md:text-xl font-medium'>
-          {title}
+          {rightNow ? 'Today' : title}
         </span>
         {subtitle && (
-          <span className='text-gray-400 text-xs'>
+          <span className={`text-xs ${rightNow ? 'text-white' :'text-gray-400 ' }`}>
             {subtitle}
           </span>
         )}
@@ -40,8 +40,9 @@ export default function ForecastCard({
       {/* Weather Icon */}
       <img 
         src={icon}
-        alt={icon?.toString()}
-        className='h-8 w-8 md:h-12 md:w-12 my-1'
+        alt={icon?.toString() || 'forecast-icon.png'}
+        loading='eager'
+        className='h-fit w-fit my-1'
       />
 
       {/* Temperature */}

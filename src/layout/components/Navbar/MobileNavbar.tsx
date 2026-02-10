@@ -22,7 +22,7 @@ export default function MobileNavbar({
   const handleClose = () => setToggle(false)
 
   return (
-    <nav id='navbar' className='bg-transparent flex md:hidden flex-row justify-between items-center w-full p-2 px-5 z-10'>
+    <nav className='bg-transparent flex md:hidden flex-row justify-between items-center w-full p-2 px-5 z-10'>
       
       {/* Logo */}
       <a className="flex flex-row items-center" href="/">

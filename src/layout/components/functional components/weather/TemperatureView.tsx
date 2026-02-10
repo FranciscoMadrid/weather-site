@@ -43,7 +43,7 @@ export default function TemperatureView({
         
         {/* Feels Like */}
         <TempDetailCard
-          className='gap-2 min-h-30 flex flex-col'
+          className='gap-2 min-h-30 flex flex-col bg-gray-800/30'
           title='Feels like'
           metric={`${temp}`}
           tempSymbol={tempSymbol}
@@ -52,7 +52,7 @@ export default function TemperatureView({
 
         {/* Humidity */}
         <TempDetailCard
-          className='gap-2 min-h-30 flex flex-col'
+          className='gap-2 min-h-30 flex flex-col bg-gray-800/30'
           title='Humidity'
           metric={`${currentWeather.humidity}%`}
           icon={WiHumidity}

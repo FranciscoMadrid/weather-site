@@ -2,6 +2,7 @@
 import '@/styles/global.css'
 import siteConfig from '@/config/site.json'
 import Header from './components/Navbar/Header.astro'
+import Footer from './components/partials/Footer.astro'
 
 export interface Props {
   title?: string,
@@ -34,5 +35,6 @@ const {
 		<main class="grow">
       <slot/>
     </main>
+		<Footer/>
 	</body>
 </html>

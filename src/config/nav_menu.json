@@ -1,16 +1,8 @@
 {
   "nav": [
     {
-      "name": "Home",
-      "href": "/"
-    },
-    {
-      "name": "Cities",
-      "href": "/"
-    },
-    {
       "name": "About",
-      "href": "/"
+      "href": "/about"
     }
   ]
 }

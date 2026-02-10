@@ -3,9 +3,24 @@ import DesktopNavbar from "./DesktopNavbar.astro";
 import MobileNavbar from "./MobileNavbar";
 import LogoPlaceHolder from '/public/images/Weather Site Logo.png'
 ---
-<div class="bg-transparent z-100 w-full fixed top-0 left-0">
+<div id="navbar" class=" z-100 w-full fixed top-0 left-0 transition-colors ease-in-out duration-200">
   <DesktopNavbar/>
   <MobileNavbar 
     logo_image={LogoPlaceHolder}
     client:load/>
 </div>
+
+<script type="module">
+  const navbar = window.document.getElementById('navbar');
+
+  window.addEventListener('scroll', () => {
+    const isMobile = window.innerWidth < 768;
+    const scrollLimit = isMobile ? 50 : 60;
+
+    if(window.scrollY > scrollLimit){
+      navbar?.classList.add('bg-primary')
+    } else {
+      navbar?.classList.remove('bg-primary')
+    }
+  })
+</script>

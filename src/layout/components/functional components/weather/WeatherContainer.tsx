@@ -28,6 +28,7 @@ export default function WeatherContainer({
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ForecastResponse>();
   const settings = useStore($settings)
+  const currentDay = new Date();
   const [backgroundVideoUrl, setBackgroundVideoUrl] = useState<WeatherAsset>()
   const defaultData = city && country ? `${country}, ${city}` : 'San Pedro Sula, Honduras'
 
@@ -51,6 +52,14 @@ export default function WeatherContainer({
     fetchForecast(defaultData)
   }, [])
 
+  /* For the background video */
+  useEffect(() => {
+    if(data){
+      const newAssets = getWeatherAssets(data.current.condition.code, !!data.current.is_day)
+      setBackgroundVideoUrl(newAssets)
+    }
+  }, [data])
+
   const fetchForecast = async (searchTerm: string) => {
     try {
       setLoading(true)
@@ -68,7 +77,7 @@ export default function WeatherContainer({
 
   return (
     <section 
-      className='w-full h-full min-h-screen relative flex flex-col pt-20 px-5'>
+      className='w-full h-full min-h-screen relative flex flex-col pt-20 px-5 pb-10'>
       <div className='z-10 grid grid-cols-1 md:grid-cols-[40%_60%] mx-auto max-w-7xl w-full h-full rounded-md overflow-hidden'>
         {/* Left Side of Cont */}
         <div 
@@ -93,17 +102,19 @@ export default function WeatherContainer({
             <ScrollableContainer
               className='bg-gray-800/30'
               icon={FaClock}
-              title='Daily'>
+              title='Daily - Average'>
                 {data.forecast.forecastday.map((day) => {
                   const dateString = day.date;
                   const date = new Date (dateString);
                   const forecastSubtitle = `${date.getUTCDate().toString()}/${date.getUTCMonth() + 1}`;
                   const temp = settings.viewCelsius ? day.day.avgtemp_c : day.day.avgtemp_f
+
                   return (
                     <ForecastCard
                       key={day.date}
                       temp={temp}
                       title={WeekdayMap[date.getUTCDay()]}
+                      rightNow={currentDay.getUTCDate() === date.getUTCDate() && currentDay.getUTCMonth() === date.getUTCMonth()}
                       subtitle={forecastSubtitle}
                       icon={day.day.condition.icon}
                     />
@@ -208,7 +219,7 @@ export default function WeatherContainer({
       </div>
       {backgroundVideoUrl && (
         <BackgroundVideo
-          assests={backgroundVideoUrl}
+          assets={backgroundVideoUrl}
         />
       )}
     </section>

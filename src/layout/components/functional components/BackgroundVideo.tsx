@@ -2,39 +2,69 @@ import type { WeatherAsset } from '@/lib/weather_api/type'
 import React, { useEffect, useRef, useState } from 'react'
 
 export interface BackgroundVideoProps{
-  assests: WeatherAsset,
+  assets: WeatherAsset,
   className?: string,
   autoPlay?: boolean,
   fadeDuration?: number,
 }
 
 export default function BackgroundVideo({
-  assests,
-  className,
+  assets,
   autoPlay = true,
-  fadeDuration = 2
 }: BackgroundVideoProps) {
 
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [videoSource, setVideoSource] = useState(assests)
-  const [fade, setFade] = useState(false)
+  const [activeVideo, setActiveVideo] = useState<string>(assets.video)
+  const [nextVideo, setNextVideo] = useState<string | null>(null)
+  const [fade, setFade] = useState(false);
+
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    if(assets.video !== activeVideo){
+      setNextVideo(assets.video);
+      setFade(false)
+    }
+  }, [assets.video, activeVideo])
+
+  const handleCanPlay = () => {
+    if(nextVideo) {
+      setFade(true)
+      setTimeout(() => {
+        setActiveVideo(nextVideo)
+        setNextVideo(null)
+        setFade(false)
+      }, 300)
+    }
+  }
   
   return (
-    <div className='absolute h-full inset-0 z-0 w-full object-cover object-center top-0 left-0 '>
-      <video 
-        ref={videoRef}
-        className={`h-full w-full duration-1000 fixed object-cover object-center transition-opacity ease-in 
-          ${fade ? 'opacity-0' : 'opacity-100'}`}
+    <div className='absolute h-full inset-0 z-0 w-full overflow-hidden bg-black'>
+      <video
+        key={activeVideo}
+        className="absolute h-full w-full object-cover"
         loop
         autoPlay={autoPlay}
         muted
         playsInline
       >
-        <source 
-          src={videoSource.video}
-          type='video/mp4'
-        />
+        <source src={activeVideo} type='video/mp4' />
       </video>
+      {nextVideo && (
+        <video
+          key={nextVideo}
+          onCanPlay={handleCanPlay}
+          className={`absolute h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+            fade ? 'opacity-100' : 'opacity-0'
+          }`}
+          loop
+          autoPlay={autoPlay}
+          muted
+          playsInline
+        >
+          <source src={nextVideo} type='video/mp4' />
+        </video>
+      )}
     </div>
   )
 }

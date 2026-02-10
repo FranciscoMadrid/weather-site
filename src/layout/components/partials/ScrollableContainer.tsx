@@ -27,7 +27,7 @@ export default function ScrollableContainer({
           </h2>
         </div>
 
-        <div className='flex flex-row h-full gap-5 py-2 w-full overflow-x-scroll custom-scrollbar'>
+        <div className='flex flex-row h-full gap-5 py-2 w-full overflow-x-auto custom-scrollbar'>
           <div className='flex shrink-0 gap-2 w-full'>
             {children}
           </div>

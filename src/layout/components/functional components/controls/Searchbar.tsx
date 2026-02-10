@@ -58,9 +58,9 @@ export default function Searchbar({currentSearTerm, setData}: SearchBarProps) {
     url.searchParams.set('country', encodeURIComponent(country))
     window.history.pushState({}, '', url);
 
-    setSearchQuery(city)
+    setSearchQuery(`${country}, ${city}`)
     setSuggestions([]);
-    fetchForecast(city)
+    fetchForecast(`${country}, ${city}`)
   }
   return (
     <div className='w-full h-18 md:h-12 group text-white rounded-xl relative bg-gray-900/60 backdrop-blur-md z-10'>
