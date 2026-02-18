@@ -36,11 +36,7 @@ export default function MobileNavbar({
       </a>
 
       {/* Hamburger */}
-      <GiHamburgerMenu 
-        size={36}
-        className='text-white cursor-pointer'
-        onClick={handleToggle}
-      />
+      
 
       {/* Overlay */}
       <div
@@ -64,17 +60,6 @@ export default function MobileNavbar({
               alt={logo_title}
             />
           </a>
-          <ul className="flex flex-col items-center gap-10 p-5 justify-between">
-            {navMenuConfig.nav.map((nav, index) => (
-              <li key={index}>
-                <NavLink
-                  title={nav.name}
-                  href={nav.href}
-                  className="text-white font-semibold text-2xl"
-                />
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </nav>
