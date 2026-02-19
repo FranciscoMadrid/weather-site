@@ -1,4 +1,4 @@
-import { WeatherApiMethod } from "./type";
+import { WeatherApiMethod, type CurrentLocationResponse } from "./type";
 import conditionList from '@/config/weather_api_conditions.json'
 
 const BASE_URL = import.meta.env.BASE_URL_WEATHER_API;
@@ -55,4 +55,35 @@ export function getConditionCategory(code: number){
     }
   }
   return 'clear'
+}
+
+export async function getCurrentLocation(
+  ip: string
+): Promise<CurrentLocationResponse> {
+  try {
+    if (!ip || ip === "127.0.0.1" || ip === "::1") {
+      return {
+        country: "Unknown",
+        city: "Unknown",
+      };
+    }
+
+    const res = await fetch(`https://ipapi.co/${ip}/json/`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch geolocation");
+    }
+
+    const data = await res.json();
+
+    return {
+      country: data.country_name || "Unknown",
+      city: data.city || "Unknown",
+    };
+  } catch {
+    return {
+      country: "Unknown",
+      city: "Unknown",
+    };
+  }
 }

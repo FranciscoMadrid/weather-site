@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { ForecastResponse, WeatherAsset } from '@/lib/weather_api/type';
+import type { CurrentLocationResponse, ForecastResponse, WeatherAsset } from '@/lib/weather_api/type';
 import TemperatureView from './TemperatureView';
 import BackgroundVideo from '../BackgroundVideo';
 import ScrollableContainer from '../../partials/ScrollableContainer';
@@ -18,10 +18,13 @@ import { getWeatherAssets } from '@/lib/util';
 import Searchbar from '@/layout/components/functional components/controls/Searchbar';
 import WeatherSkeleton from '../skeleton/WeatherSkeleton';
 import FadeInWrapper from '../animation/FadeInWrapper';
+import ToggleTemp from '../controls/ToggleTemp';
+import ToggleKm from '../controls/ToggleKm';
+import SettingsContainer from '../controls/SettingsContainer';
 
 export interface WeatherContainerProps {
-  city?: string,
-  country?:string
+  city: string | null,
+  country:string | null 
 }
 export default function WeatherContainer({
   city, 
@@ -29,10 +32,12 @@ export default function WeatherContainer({
 }:WeatherContainerProps) {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<ForecastResponse>();
+  const [_country, _setCountry] = useState<string>(country ?? 'Honduras')
+  const [_city, _setCity] = useState<string>(city ?? 'San Pedro Sula')
   const settings = useStore($settings)
   const currentDay = new Date();
   const [backgroundVideoUrl, setBackgroundVideoUrl] = useState<WeatherAsset>()
-  const defaultData = city && country ? `${country}, ${city}` : 'San Pedro Sula, Honduras'
+  const defaultData = `${_country}, ${_city}`
 
   const currentTempSymbol = settings.viewCelsius
     ? data?.current.temp_c
@@ -51,7 +56,15 @@ export default function WeatherContainer({
     : 'MPH'
   
   useEffect(() => {
-    fetchForecast(defaultData)
+    try {
+      setLoading(true)
+      fetchCurrentLocation()
+      fetchForecast(defaultData)
+    } catch (error) {
+      console.error(error)
+    } finally{
+      setLoading(false)
+    }
   }, [])
 
   /* For the background video */
@@ -64,7 +77,6 @@ export default function WeatherContainer({
 
   const fetchForecast = async (searchTerm: string) => {
     try {
-      setLoading(true)
       const res = await fetch(`/api/fetch_forecast_weather?q=${searchTerm}`)
       if (!res.ok) throw new Error('Failed to fetch forecast')
         const json: ForecastResponse = await res.json()
@@ -72,11 +84,26 @@ export default function WeatherContainer({
       setBackgroundVideoUrl(getWeatherAssets(json.current.condition.code, !!json.current.is_day))
     } catch (error) {
       console.error(error)
-    } finally {
-      setLoading(false)
     }
   }
 
+const fetchCurrentLocation = async () => {
+  try {
+    const response = await fetch("/api/fetch_user_location");
+    if (!response.ok) {
+      throw new Error("Failed to fetch location");
+    }
+    const data:CurrentLocationResponse = await response.json();
+    if(data.city !== 'Unknown'){
+      _setCity(data.city)
+    }
+    if(data.country !== 'Unknown'){
+      _setCountry(data.country)
+    }
+  } catch (error) {
+    console.error("Location error:", error);
+  }
+};
   if(loading || !data){
     return <WeatherSkeleton/>
   }
@@ -90,17 +117,17 @@ export default function WeatherContainer({
             {/* Left Side of Cont */}
             <div 
               className='border-20 border-gray-800/40 w-full h-full'>
-          
-                  <div className='flex p-5 flex-col gap-2 items-center h-full bg-linear-to-t from-transparent to-gray-600/40 justify-between'>
-                  {/* Searchbar */}
+                <div className='flex p-5 flex-col gap-2 items-center h-full bg-linear-to-t from-transparent to-gray-600/40 justify-between'>
+                {/* Searchbar & Control*/}
+                <div className='flex relative items-center flex-row gap-2 w-full'>
                   <Searchbar
                     setData={setData}
                     currentSearTerm={`${data.location.country}, ${data.location.name}`}/>
-                  <TemperatureView 
-                    currentWeather={data.current}
-                    temp={currentTempSymbol}/>
-                  </div>
-                
+                </div>
+                <TemperatureView 
+                  currentWeather={data.current}
+                  temp={currentTempSymbol}/>
+                </div>
             </div>
 
             {/* Right Side of Cont */}

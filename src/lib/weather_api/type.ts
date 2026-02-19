@@ -166,4 +166,9 @@ export interface WeatherConditionConfig {
   night: WeatherAsset;
 };
 
+export interface CurrentLocationResponse {
+  country: string,
+  city: string
+}
+
 type WeatherConditionsMap = Record<string, WeatherConditionConfig>;

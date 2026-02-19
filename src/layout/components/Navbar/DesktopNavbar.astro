@@ -3,6 +3,7 @@ import NavLink from "../NavLink"
 import { Image } from "astro:assets"
 import LogoPlaceHolder from '/public/images/Weather Site Logo.png'
 import navMenuConfig from '@/config/nav_menu.json'
+import SettingsContainer from "../functional components/controls/SettingsContainer";
 
 export interface NavbarProps {
   logo_image?: ImageMetadata,
@@ -32,18 +33,5 @@ const {
     />
   </a>
   <!-- Desktop View -->
-  <ul class="hidden md:flex flex-row gap-10 justify-between">
-    <!-- {navMenuConfig.nav.map((nav) => (
-      <li>
-        <NavLink
-          title={nav.name}
-          href={nav.href}
-          hasUnderline={true}
-          className="text-white font-semibold text-lg md:text-xl"
-          underlineClassName="h-1 bg-white -bottom-0.5"
-          client:load
-        />
-      </li>
-    ))} -->
-  </ul>
+  <SettingsContainer client:load/>
 </nav>
