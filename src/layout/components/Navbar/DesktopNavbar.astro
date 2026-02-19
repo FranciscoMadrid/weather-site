@@ -1,19 +1,16 @@
 ---
-import NavLink from "../NavLink"
 import { Image } from "astro:assets"
-import LogoPlaceHolder from '/public/images/Weather Site Logo.png'
-import navMenuConfig from '@/config/nav_menu.json'
 import SettingsContainer from "../functional components/controls/SettingsContainer";
 
 export interface NavbarProps {
-  logo_image?: ImageMetadata,
+  logo_image: ImageMetadata,
   logo_title?: string,
   height?: number,
   width?: number,
 }
 
 const {
-  logo_image = LogoPlaceHolder, 
+  logo_image, 
   logo_title,
   height = 80,
   width = 80,
@@ -24,12 +21,12 @@ const {
   <a
     class="flex flex-row items-center"
     href="/">
-    <Image
+    <img
       width={width}
       height={height}
       loading={'eager'}
-      src={logo_image}
-      alt={logo_image}
+      src={logo_image.src}
+      alt={'logo.png'}
     />
   </a>
   <!-- Desktop View -->
