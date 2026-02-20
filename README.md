@@ -1,43 +1,31 @@
-# Astro Starter Kit: Minimal
+A modern, real-time weather application engineered for speed, security, and type-safety. 
+Built with Astro, React, and Tailwind CSS, this project demonstrates a "Server-First" approach to fetching and displaying meteorological data.
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Live Demo
+https://weather-site-alpha-nine.vercel.app/
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Key Highlight
 
-## 🚀 Project Structure
+- End-to-End Type Safety: Fully typed API responses and component props using TypeScript.
+- Zero-JS by Default: Leverages Astro’s Islands architecture to ship minimal JavaScript to the browser.
+- Security First: WeatherAPI keys are strictly managed on the server-side, preventing exposure in client-side bundles.
+- Edge-Ready: Optimized for Vercel’s global edge network for low-latency data delivery.
 
-Inside of your Astro project, you'll see the following folders and files:
+Tech Stack
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+| Technology  | Purpose                           |
+| ----------- | --------------------------------- |
+| Astro       | Framework & server-side rendering |
+| React       | Interactive UI components         |
+| TailwindCSS | Styling                           |
+| WeatherAPI  | Real-time weather data            |
+| Vercel      | Hosting & deployment              |
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Architecture & API Strategy
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Weather data is fetched server-side using Astro API routes
+- API keys are stored in environment variables
+- No sensitive data is exposed in the browser
+- Structured request handling to minimize unnecessary API calls
+- Optimized for Vercel serverless deployment
